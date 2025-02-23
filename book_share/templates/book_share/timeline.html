@@ -1,0 +1,21 @@
+{% extends "book_share/base.html" %}
+
+{% block content %}
+    <h2>タイムライン</h2>
+
+    {% if posts %}
+        {% for post in posts %}
+            <div class="post">
+                <img src="{{ post.image.url }}" alt="本の画像" width="150">
+                <p><strong>{{ post.user.username }}</strong> さんの投稿</p>
+                <p>タイトル: {{ post.book_title }}</p>
+                <p>著者: {{ post.book_author }}</p>
+                <p>感想: {{ post.content }}</p>
+                <p>投稿日: {{ post.created_at }}</p>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>まだ投稿がありません。</p>
+    {% endif %}
+{% endblock %}

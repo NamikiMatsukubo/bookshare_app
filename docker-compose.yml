@@ -1,0 +1,23 @@
+# version: '3.8'
+
+# services:
+#   web:
+#     build: .
+#     container_name: django_app
+#     ports:
+#       - "8000:8000"
+#     volumes:
+#       - .:/app
+#     stdin_open: true
+#     tty: true
+
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/book_share_app
+    ports:
+      - "8000:8000"

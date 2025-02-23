@@ -1,0 +1,21 @@
+{extends 'book_share/base.html'}
+
+{% block content %}
+<h1>投稿削除確認</h1>
+
+<p>本当にこの投稿を削除しますか？</p>
+
+{% if post.image %}
+    <img src="{{ post.image.url }}" alt="{{ post.content|truncatechars:20 }}">
+{% endif %}
+<p>{{ post.content }}</p>
+<p>本のタイトル: {{ post.book_title }}</p>
+<p>著者: {{ post.book_author }}</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">削除</button>
+</form>
+
+<a href="{% url 'timeline' %}">キャンセル</a>
+{% endblock %}

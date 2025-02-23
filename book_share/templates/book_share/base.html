@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Book Share {% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
+    </head>
+    <body>
+
+        <!-- ナビゲーションバー -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Book Share</a>
+    
+                <!-- メニュー（ログイン状態によって表示を変える） -->
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto">
+                        {% if user.is_authenticated %}
+                            <!-- ログイン状態 -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'timeline' %}">タイムライン</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'user_page' username=user.username %}">マイページ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">ログアウト</a>
+                            </li>
+                        {% else %}
+                            <!-- ログアウト状態 -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">ログイン</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">新規登録</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    
+        <!-- コンテンツ部分 -->
+        <div class="container mt-4">
+            {% block content %}
+            <!-- 各ページごとのコンテンツがここに入る -->
+            {% endblock %}
+        </div>
+    
+        <footer class="text-center mt-5 py-3 bg-light">
+            <p>&copy; 2025 MyBookApp</p>
+        </footer>
+    
+    </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <h1>Time Line</h1>
+
+{% if posts %} {# postsがある場合 #}
+    <ul>
+        {% for post in posts %} {# postsをループ #}
+            <li>
+                {% if post.image %} {# 画像がある場合 #}
+                    <img src="{{post.image.url}}" alt="{{post.contents|truncatechars:20}}"> {# 画像を表示 #}
+                {% endif %}
+                <p>本のタイトル: {{ post.contents }}</p>
+                <p>本のタイトル: {{post.book_title}}</p>
+                <p>著者: {{post.book_author}}</p>
+                <p>投稿者: <a href="{% url 'user_page' post.user.username %}">{{ post.user.username }}</a></p> {# ユーザーページのリンク #}
+                <p>投稿日時: {{ post.created_at }}</p>
+                {% if request.user == post.user %} {# ログインユーザーが投稿者と一致する場合 #}
+                    <a href="{% url 'post_delete' post.pk %}"> 削除 </a> {# 削除リンク #}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
+<a href="{% url 'post_creat' %}">投稿する</a> {# 投稿作成ページへのリンク #}
+
+ -->
