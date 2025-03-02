@@ -1,0 +1,11 @@
+{% extends 'book_share/base.html' %}
+
+{% block content %}
+  <h2>新規登録</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Djangoのフォームを自動で表示 -->
+    <button type="submit">登録</button>
+  </form>
+  <p>すでにアカウントを持っている？ <a href="{% url 'login' %}">ログインはこちら</a></p>
+{% endblock %}

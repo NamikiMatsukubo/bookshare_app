@@ -1,0 +1,49 @@
+{% extends 'book_share/base.html' %}
+
+{% block content %}
+<h1>投稿作成</h1>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %} {# CSRFトークン #}
+
+    {% if form.errors %} {# フォームにエラーがある場合 #}
+        <ul class="errorlist">
+            {% for field in form %}
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}: {{ error|escape }}</li>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <div class="fieldWrapper">
+        {{ form.image.errors }}
+        <label for="{{ form.image.id_for_label }}">本の写真:</label>
+        {{ form.image }}
+    </div>
+
+    <div class="fieldWrapper">
+        {{ form.content.errors }}
+        <label for="{{ form.content.id_for_label }}">感想:</label>
+        {{ form.content }}
+    </div>
+
+    <div class="fieldWrapper">
+        {{ form.book_title.errors }}
+        <label for="{{ form.book_title.id_for_label }}">本のタイトル:</label>
+        {{ form.book_title }}
+    </div>
+
+    <div class="fieldWrapper">
+        {{ form.book_author.errors }}
+        <label for="{{ form.book_author.id_for_label }}">著者:</label>
+        {{ form.book_author }}
+    </div>
+
+    <button type="submit">投稿</button>
+</form>
+
+<a href="{% url 'timeline' %}">戻る</a>
+{% endblock %}

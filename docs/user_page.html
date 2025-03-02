@@ -1,0 +1,39 @@
+{% extends "book_share/base.html" %}
+
+{% block content %}
+<a href="{% url 'timeline' %}">タイムライン</a> {# タイムラインへのリンク #}
+<h1>{{ user.username }} さんの投稿</h1> {# ユーザー名を表示 #}
+
+{% if posts %} {# 投稿が存在する場合 #}
+    <ul>
+        {% for post in posts %} {# 投稿をループ #}
+            <li>
+                {% if post.image %} {# 画像が存在する場合 #}
+                    <img src="{{ post.image.url }}" alt="{{ post.content|truncatechars:20 }}"> {# 画像を表示 #}
+                {% endif %}
+                <p>{{ post.content }}</p>
+                <p>本のタイトル: {{ post.book_title }}</p>
+                <p>著者: {{ post.book_author }}</p>
+                <p>投稿日時: {{ post.created_at }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %} {# 投稿が存在しない場合 #}
+    <p>投稿はまだありません。</p>
+{% endif %}
+
+{% if request.user != user %}  {# 自分自身のページならボタンを表示しない #}
+    {% if request.user in user.followers.all %}
+        <form action="{% url 'unfollow_user' username=user.username %}" method="post">
+            {% csrf_token %}
+            <button type="submit">フォロー解除</button>
+        </form>
+    {% else %}
+        <form action="{% url 'follow_user' username=user.username %}" method="post">
+            {% csrf_token %}
+            <button type="submit">フォロー</button>
+        </form>
+    {% endif %}
+{% endif %}
+<a href="{% url 'timeline' %}">タイムライン</a> {# タイムラインへのリンク #}
+{% endblock %}
