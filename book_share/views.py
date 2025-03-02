@@ -65,7 +65,7 @@ def register(request):
     return render(request,'book_share/register.html', {'form': form})   
     
 # ログイン機能
-def login(request):
+def user_login(request):
     if request.method == 'POST':
         username = request.POST['useername']
         password = request.POST['password']
@@ -86,7 +86,8 @@ def login(request):
 # ログアウト機能
 class CustomLogoutView(LogoutView):
     def get(self, request, *args, **kwargs):
-        logout(request)
+        if request.user.is_authenticated:
+            logout(request)
         return redirect('login')
 
 # フォロー機能 

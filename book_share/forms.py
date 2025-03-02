@@ -16,13 +16,13 @@ class UserReistrationForm(forms.ModelForm):
         fields = ('username', 'email', 'password')
 
     def clean(self):
-        cleaned_date = super().clean()
-        password = cleaned_date.get('password')
-        password_confirm = cleaned_date.get('password_confirm')
+        cleaned_data = super().clean()
+        password = cleaned_data.get('password')
+        password_confirm = cleaned_data.get('password_confirm')
 
         if password != password_confirm:
             raise forms.ValidationError('password dose not match.')
-        return cleaned_date
+        return cleaned_data
     
-    
+
     
