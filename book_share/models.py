@@ -3,7 +3,7 @@ from django.contrib.auth.models import User, AbstractUser
 
 class Post(models. Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='投稿者')
-    image = models.ImageField(upload_to='post_image/', verbose_name='本の写真')
+    image = models.ImageField(upload_to='media/', verbose_name='本の写真')
     content = models.TextField(max_length=1000, verbose_name='感想')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='投稿日時')
     book_title = models.CharField(max_length=255, verbose_name='本の題名')
